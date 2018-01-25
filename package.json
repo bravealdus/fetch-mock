@@ -1,9 +1,9 @@
 {
   "name": "fetch-mock-es5",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "ES5 Mock http requests made using fetch (or isomorphic-fetch)",
   "main": "src/server.js",
-  "browser": "compiled/client.js",
+  "browser": "es5/client.js",
   "scripts": {
     "test": "make lint test",
     "bundle": "webpack --output-library fetchMock --entry ./es5/client.js --output-filename ./es5/client-bundle.js",
