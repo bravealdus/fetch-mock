@@ -1,13 +1,14 @@
 {
   "name": "fetch-mock-es5",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "ES5 Mock http requests made using fetch (or isomorphic-fetch)",
   "main": "src/server.js",
   "browser": "compiled/client.js",
   "scripts": {
     "test": "make lint test",
     "bundle": "webpack --output-library fetchMock --entry ./es5/client.js --output-filename ./es5/client-bundle.js",
-    "prepublish": "babel src --out-dir es5 --presets env --plugins transform-runtime && npm run bundle"
+    "prepublish": "babel src --out-dir es5 && npm run bundle",
+    "build": "babel src --out-dir es5"
   },
   "repository": {
     "type": "git",
@@ -25,14 +26,16 @@
   "author": "Forked from Rhys Evans",
   "license": "MIT",
   "dependencies": {
+    "babel-preset-stage-0": "^6.24.1",
     "glob-to-regexp": "^0.3.0",
     "path-to-regexp": "^2.1.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.1.2",
+    "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
     "bluebird": "^3.4.6",
     "chai": "^4.1.2",
     "coveralls": "^2.11.16",
@@ -42,8 +45,8 @@
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-mocha": "^1.3.0",
-    "karma-webpack": "^2.0.9",
     "karma-mocha-reporter": "^2.2.5",
+    "karma-webpack": "^2.0.9",
     "mocha": "^4.0.1",
     "node-fetch": "^2.0.0-alpha.9",
     "sinon": "^4.1.3",
