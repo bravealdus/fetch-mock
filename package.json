@@ -1,7 +1,7 @@
 {
-  "name": "fetch-mock",
+  "name": "fetch-mock-es5",
   "version": "6.0.0-beta.7",
-  "description": "Mock http requests made using fetch (or isomorphic-fetch)",
+  "description": "ES5 Mock http requests made using fetch (or isomorphic-fetch)",
   "main": "src/server.js",
   "browser": "es5/client.js",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wheresrhys/fetch-mock.git"
+    "url": "https://github.com/bravealdus/fetch-mock"
   },
   "keywords": [
     "fetch",
@@ -22,12 +22,8 @@
     "ajax",
     "xhr"
   ],
-  "author": "Rhys Evans",
+  "author": "Forked from Rhys Evans",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/wheresrhys/fetch-mock/issues"
-  },
-  "homepage": "http://www.wheresrhys.co.uk/fetch-mock",
   "dependencies": {
     "glob-to-regexp": "^0.3.0",
     "path-to-regexp": "^2.1.0"
