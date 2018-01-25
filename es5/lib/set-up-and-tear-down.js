@@ -1,14 +1,18 @@
-const compileRoute = require('./compile-route');
-const FetchMock = {};
+'use strict';
 
-FetchMock.mock = function (matcher, response, options = {}) {
-	let route;
+var compileRoute = require('./compile-route');
+var FetchMock = {};
+
+FetchMock.mock = function (matcher, response) {
+	var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+	var route = void 0;
 
 	// Handle the variety of parameters accepted by mock (see README)
 	if (matcher && response) {
 		route = Object.assign({
-			matcher,
-			response
+			matcher: matcher,
+			response: response
 		}, options);
 	} else if (matcher && matcher.matcher) {
 		route = matcher;
@@ -21,25 +25,31 @@ FetchMock.mock = function (matcher, response, options = {}) {
 	return this._mock();
 };
 
-const getMatcher = (route, propName) => route2 => route[propName] === route2[propName];
+var getMatcher = function getMatcher(route, propName) {
+	return function (route2) {
+		return route[propName] === route2[propName];
+	};
+};
 
 FetchMock.addRoute = function (route) {
 	route = this.compileRoute(route);
 
-	const clashes = this.routes.filter(getMatcher(route, 'name'));
-	const overwriteRoutes = 'overwriteRoutes' in route ? route.overwriteRoutes : this.config.overwriteRoutes;
+	var clashes = this.routes.filter(getMatcher(route, 'name'));
+	var overwriteRoutes = 'overwriteRoutes' in route ? route.overwriteRoutes : this.config.overwriteRoutes;
 
 	if (overwriteRoutes === false || !clashes.length) {
 		return this.routes.push(route);
 	}
 
-	const methodsMatch = getMatcher(route, 'method');
+	var methodsMatch = getMatcher(route, 'method');
 
 	if (overwriteRoutes === true) {
 		return this.routes.splice(this.routes.indexOf(clashes.find(methodsMatch)), 1, route);
 	}
 
-	if (clashes.some(existingRoute => !route.method || methodsMatch(existingRoute))) {
+	if (clashes.some(function (existingRoute) {
+		return !route.method || methodsMatch(existingRoute);
+	})) {
 		throw new Error('Adding route with same name as existing route. See `overwriteRoutes` option.');
 	}
 
@@ -70,15 +80,21 @@ FetchMock.spy = function () {
 
 FetchMock.compileRoute = compileRoute;
 
-FetchMock.once = function (matcher, response, options = {}) {
+FetchMock.once = function (matcher, response) {
+	var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
 	return this.mock(matcher, response, Object.assign({}, options, { repeat: 1 }));
 };
 
-['get', 'post', 'put', 'delete', 'head', 'patch'].forEach(method => {
-	FetchMock[method] = function (matcher, response, options = {}) {
+['get', 'post', 'put', 'delete', 'head', 'patch'].forEach(function (method) {
+	FetchMock[method] = function (matcher, response) {
+		var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
 		return this.mock(matcher, response, Object.assign({}, options, { method: method.toUpperCase() }));
 	};
-	FetchMock[`${method}Once`] = function (matcher, response, options = {}) {
+	FetchMock[method + 'Once'] = function (matcher, response) {
+		var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
 		return this.once(matcher, response, Object.assign({}, options, { method: method.toUpperCase() }));
 	};
 });
@@ -98,7 +114,9 @@ FetchMock.reset = function () {
 	this._calls = {};
 	this._allCalls = [];
 	this._holdingPromises = [];
-	this.routes.forEach(route => route.reset && route.reset());
+	this.routes.forEach(function (route) {
+		return route.reset && route.reset();
+	});
 	return this;
 };
 

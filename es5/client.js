@@ -1,6 +1,8 @@
-const FetchMock = require('./lib/index');
-const statusTextMap = require('./lib/status-text');
-const theGlobal = typeof window !== 'undefined' ? window : self;
+'use strict';
+
+var FetchMock = require('./lib/index');
+var statusTextMap = require('./lib/status-text');
+var theGlobal = typeof window !== 'undefined' ? window : self;
 
 FetchMock.global = theGlobal;
 FetchMock.statusTextMap = statusTextMap;

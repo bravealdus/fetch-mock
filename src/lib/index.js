@@ -1,3 +1,5 @@
+require('babel-polyfill');
+
 const setUpAndTearDown = require('./set-up-and-tear-down');
 const fetchHandler = require('./fetch-handler');
 const inspecting = require('./inspecting');

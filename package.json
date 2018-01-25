@@ -1,6 +1,6 @@
 {
   "name": "fetch-mock-es5",
-  "version": "7.0.2",
+  "version": "7.0.3",
   "description": "ES5 Mock http requests made using fetch (or isomorphic-fetch)",
   "main": "src/server.js",
   "browser": "es5/client.js",
@@ -8,7 +8,7 @@
     "test": "make lint test",
     "bundle": "webpack --output-library fetchMock --entry ./es5/client.js --output-filename ./es5/client-bundle.js",
     "prepublish": "babel src --out-dir es5 && npm run bundle",
-    "build": "babel src --out-dir es5"
+    "build": "babel src --out-dir es5 && npm run bundle"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   "author": "Forked from Rhys Evans",
   "license": "MIT",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "babel-preset-stage-0": "^6.24.1",
     "glob-to-regexp": "^0.3.0",
     "path-to-regexp": "^2.1.0"

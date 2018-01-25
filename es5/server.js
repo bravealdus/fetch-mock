@@ -1,12 +1,12 @@
 'use strict';
 
-const fetch = require('node-fetch');
-const Request = fetch.Request;
-const Response = fetch.Response;
-const Headers = fetch.Headers;
-const stream = require('stream');
-const FetchMock = require('./lib/index');
-const http = require('http');
+var fetch = require('node-fetch');
+var Request = fetch.Request;
+var Response = fetch.Response;
+var Headers = fetch.Headers;
+var stream = require('stream');
+var FetchMock = require('./lib/index');
+var http = require('http');
 
 FetchMock.global = global;
 FetchMock.statusTextMap = http.STATUS_CODES;

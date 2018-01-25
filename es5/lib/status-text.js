@@ -1,6 +1,6 @@
 'use strict';
 
-const statusTextMap = {
+var statusTextMap = {
   '100': 'Continue',
   '101': 'Switching Protocols',
   '102': 'Processing',

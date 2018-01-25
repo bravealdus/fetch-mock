@@ -1,8 +1,12 @@
-const setUpAndTearDown = require('./set-up-and-tear-down');
-const fetchHandler = require('./fetch-handler');
-const inspecting = require('./inspecting');
+'use strict';
 
-const FetchMock = Object.assign({}, fetchHandler, setUpAndTearDown, inspecting);
+require('babel-polyfill');
+
+var setUpAndTearDown = require('./set-up-and-tear-down');
+var fetchHandler = require('./fetch-handler');
+var inspecting = require('./inspecting');
+
+var FetchMock = Object.assign({}, fetchHandler, setUpAndTearDown, inspecting);
 
 FetchMock.config = {
 	fallbackToNetwork: false,
@@ -13,7 +17,7 @@ FetchMock.config = {
 };
 
 FetchMock.createInstance = function () {
-	const instance = Object.create(FetchMock);
+	var instance = Object.create(FetchMock);
 	instance.routes = (this.routes || []).slice();
 	instance.fallbackResponse = this.fallbackResponse || undefined;
 	instance.config = Object.assign({}, this.config || FetchMock.config);
@@ -34,9 +38,11 @@ FetchMock.sandbox = function () {
 	// this construct allows us to create a fetch-mock instance which is also
 	// a callable function, while circumventing circularity when defining the
 	// object that this function should be bound to
-	const proxy = (url, options) => sandbox.fetchHandler(url, options);
+	var proxy = function proxy(url, options) {
+		return sandbox.fetchHandler(url, options);
+	};
 
-	const sandbox = Object.assign(proxy, // Ensures that the entire returned object is a callable function
+	var sandbox = Object.assign(proxy, // Ensures that the entire returned object is a callable function
 	FetchMock, // prototype methods
 	this.createInstance() // instance data
 	);
